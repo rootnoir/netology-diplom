@@ -1,0 +1,4 @@
+.idea/
+.ignoreme/
+terraform/.terraform/
+terraform/.terraform.lock.hcl

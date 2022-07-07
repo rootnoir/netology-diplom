@@ -1,0 +1,48 @@
+---
+- name: add gitlab-runner repo
+  become: true
+  ansible.builtin.copy:
+    src: repo/el/7.repo
+    dest: /etc/yum.repos.d/gitlab-runner.repo
+
+- name: add endpoint repo
+  become: true
+  ansible.builtin.yum:
+    name: https://packages.endpointdev.com/rhel/7/os/x86_64/endpoint-repo.x86_64.rpm
+    state: present
+    disable_gpg_check: yes
+
+- name: instal git
+  become: true
+  ansible.builtin.yum:
+    name: git
+    state: present
+    disable_gpg_check: yes
+
+- name: install gitlab-runner
+  become: true
+  ansible.builtin.yum:
+    name: gitlab-runner
+    state: present
+    disable_gpg_check: yes
+
+- name: register gitlab runner
+  become: true
+  ansible.builtin.shell:
+    cmd: >
+      gitlab-runner register
+      --non-interactive
+      --url '{{ gitlab_runner_coordinator_url }}'
+      --description '{{ ansible_hostname }}'
+      --tag-list '{{ gitlab_runner_tags | join(",") }}'
+      --run-untagged
+      --executor '{{ gitlab_runner_executor }}'
+      --registration-token '{{ gitlab_runner_registration_token }}'
+  when: gitlab_runner_registration_token is defined
+
+- name: runner started and enabled
+  become: true
+  ansible.builtin.systemd:
+    name: gitlab-runner
+    state: restarted
+    enabled: yes
