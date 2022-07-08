@@ -107,3 +107,14 @@ resource "null_resource" "runner" {
     null_resource.gitlab
   ]
 }
+
+resource "null_resource" "copy_ssh" {
+  provisioner "local-exec" {
+    command = "ANSIBLE_FORCE_COLOR=1 ansible-playbook -i ../ansible/inventory/stage.yml -t copy_ssh ../ansible/site.yml"
+  }
+
+  depends_on = [
+    null_resource.runner,
+    null_resource.wordpress
+  ]
+}

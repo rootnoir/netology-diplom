@@ -49,7 +49,7 @@ resource "yandex_compute_instance" "nginx" {
 resource "yandex_compute_instance" "db01" {
   name = "db01"
   hostname = "db01"
-  zone = var.zone
+  zone = var.zone2
   resources {
     core_fraction = var.core_fraction
     cores = 4
@@ -64,7 +64,7 @@ resource "yandex_compute_instance" "db01" {
     }
   }
   network_interface {
-    subnet_id = yandex_vpc_subnet.subnet1.id
+    subnet_id = yandex_vpc_subnet.subnet2.id
     nat       = false
   }
   metadata = {

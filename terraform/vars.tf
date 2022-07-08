@@ -52,15 +52,3 @@ variable "acme_server" {
   type = string
   default = "letsencrypttest"
 }
-
-variable "yc_access_key" {
-  type = string
-  description = "execute 'export TF_VAR_yc_access_key={access_key}' first!"
-  sensitive = true
-}
-
-variable "yc_secret_key" {
-  type = string
-  description = "execute 'export TF_VAR_yc_secret_key={secret_key}' first!"
-  sensitive = true
-}

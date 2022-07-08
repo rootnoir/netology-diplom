@@ -39,6 +39,7 @@ resource "local_file" "group_vars" {
     acme_server: "${var.acme_server}"
     
     mysql_master_ip: ${yandex_compute_instance.db01.network_interface.0.ip_address}
+    wp_db_host: "{{ mysql_master_ip }}"
 
     prometheus_nginx_internal_ip: ${yandex_compute_instance.nginx.network_interface.0.ip_address}
 

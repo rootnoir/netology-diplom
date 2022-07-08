@@ -39,6 +39,10 @@ resource "local_file" "inventory" {
       hosts:
         runner-01:
           ansible_host: ${yandex_compute_instance.runner.network_interface.0.ip_address}
+    deployment:
+      children:
+        runner:
+        wordpress:
     gatewayed:
       vars:
         ansible_ssh_common_args: '-o ProxyCommand="ssh -W %h:%p -q centos@${yandex_compute_instance.nginx.network_interface.0.nat_ip_address}"'
