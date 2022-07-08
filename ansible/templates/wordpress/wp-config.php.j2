@@ -48,14 +48,14 @@ define( 'DB_COLLATE', '' );
  *
  * @since 2.6.0
  */
-define( 'AUTH_KEY',         'put your unique phrase here' );
-define( 'SECURE_AUTH_KEY',  'put your unique phrase here' );
-define( 'LOGGED_IN_KEY',    'put your unique phrase here' );
-define( 'NONCE_KEY',        'put your unique phrase here' );
-define( 'AUTH_SALT',        'put your unique phrase here' );
-define( 'SECURE_AUTH_SALT', 'put your unique phrase here' );
-define( 'LOGGED_IN_SALT',   'put your unique phrase here' );
-define( 'NONCE_SALT',       'put your unique phrase here' );
+define('AUTH_KEY',         ':ByM>TD(aqa_heefdI!|/H<|B3|D4QO+cQu-+*Q{kEX1XfiYh*wca^kW91;;m2IX');
+define('SECURE_AUTH_KEY',  '#DX-U^S8d A#LeN_p4Q%BN.M8[n||{Zdi/DM_+iKn&B&H,EF]J)S8(AO@9@y@$HF');
+define('LOGGED_IN_KEY',    'V7&D-[9uFvea+I`[1X={lj):ZC-I-:>vHf-J~@(N1HZKES.w F`VLqC1gnwh(v`l');
+define('NONCE_KEY',        '2NUnUJBc,;%ta}Ntl-FO_?Ss+V-U.zH03 x`Mj(ocn&@-<>u<tos}{_-FLRQ}|<J');
+define('AUTH_SALT',        '`6:{Dv` 2+_f*ZHQ!I|ra*?WfficZ++Hq#*(fA K_=r`@gsHXJTiJ93fnNu^S <Z');
+define('SECURE_AUTH_SALT', '}~lyE6G3T^>UQO :fn5vah:w`~W 0!kJSv+cRtsm 8GSqgYpY9dwe [-+fIYpghS');
+define('LOGGED_IN_SALT',   'G. u&71wAg&Y/bL/F[HQAV3qM%ST-pb,{XD8[6Q`*85O-:fjRQD,&R=RrAPB-%Y1');
+define('NONCE_SALT',       'u+pU;s8 q5P6@(6|grC+V~8ln1BFIJ>,-+:`-MPJ.cl_f9$-e$F?pC&:Y2Bv,hNh');
 
 /**#@-*/
 
@@ -83,7 +83,16 @@ define( 'WP_DEBUG', false );
 
 /* Add any custom values between this line and the "stop editing" line. */
 
+define('WP_PROXY_HOST', '{{ wp_proxy_host }}');
+define('WP_PROXY_PORT', '{{ wp_proxy_port }}');
+define('WP_PROXY_USERNAME', '');
+define('WP_PROXY_PASSWORD', '');
+define('WP_PROXY_BYPASS_HOSTS', 'localhost');
 
+define( 'WP_HOME', '{{ wp_uri }}' );
+define( 'WP_SITEURL', '{{ wp_uri }}' );
+
+$_SERVER['HTTPS']='on';
 
 /* That's all, stop editing! Happy publishing. */
 

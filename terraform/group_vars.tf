@@ -15,6 +15,8 @@ resource "local_file" "group_vars" {
     prometheus_proxy: "{{ yum_proxy }}"
     alertmanager_proxy: "{{ yum_proxy }}"
     node_exporter_proxy: "{{ yum_proxy }}"
+    wp_proxy_host: "{{ squid_ip }}"
+    wp_proxy_port: "{{ squid_port }}"
 
     domain_name: ${var.mydomain}
     web_resources:

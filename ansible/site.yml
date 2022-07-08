@@ -1,5 +1,5 @@
 ---
-- name: install squid on nat hosts
+- name: install squid on bastion hosts
   hosts: nginx
   remote_user: centos
   roles:
@@ -114,9 +114,64 @@
         dest: /var/www/wordpress/wp-config.php
         owner: nginx
         group: nginx
-      notify: reload nginx
+      notify: restart nginx
+    
+    - name: install site
+      ansible.builtin.shell:
+        cmd: >-
+          /usr/local/bin/wp core install 
+          --url={{ wp_uri }} 
+          --title={{ wp_site_title }} 
+          --admin_user={{ wp_site_admin_name }} 
+          --admin_password={{ wp_site_admin_password }} 
+          --admin_email={{ wp_site_admin_email }}
+        chdir: /var/www/wordpress
+        creates: /opt/site-installed
+      register: wp_site_install
+
+    - name: put site-installed flag
+      become: true
+      ansible.builtin.file:
+        path: /opt/site-installed
+        state: touch
+      when: wp_site_install.rc == 0
   tags:
     - wordpress
+
+- name: install prometheus
+  hosts: monitoring
+  remote_user: centos
+  roles:
+    - install-prometheus
+  post_tasks:
+    - name: reconfigure prometheus
+      become: true
+      ansible.builtin.template:
+        src: prometheus/prometheus.yml.j2
+        dest: /etc/prometheus/prometheus.yml
+      notify: restart prometheus
+    
+    - name: copy alert rules
+      become: true
+      ansible.builtin.copy:
+        src: "alertmanager/{{ item }}"
+        dest: "/var/lib/prometheus/rules.d/{{ item }}"
+        owner: prometheus
+        group: prometheus
+      loop:
+        - node_exporter-rules.yml
+        - prometheus-rules.yml
+      notify: restart prometheus
+  tags:
+    - prometheus
+
+- name: install alertmanager
+  hosts: monitoring
+  remote_user: centos
+  roles:
+    - install-alertmanager
+  tags:
+    - alertmanager
 
 - name: install grafana
   hosts: monitoring
@@ -156,41 +211,6 @@
       notify: restart grafana
   tags:
     - grafana
-
-- name: install prometheus
-  hosts: monitoring
-  remote_user: centos
-  roles:
-    - install-prometheus
-  post_tasks:
-    - name: reconfigure prometheus
-      become: true
-      ansible.builtin.template:
-        src: prometheus/prometheus.yml.j2
-        dest: /etc/prometheus/prometheus.yml
-      notify: restart prometheus
-    
-    - name: copy alert rules
-      become: true
-      ansible.builtin.copy:
-        src: "alertmanager/{{ item }}"
-        dest: "/var/lib/prometheus/rules.d/{{ item }}"
-        owner: prometheus
-        group: prometheus
-      loop:
-        - node_exporter-rules.yml
-        - prometheus-rules.yml
-      notify: restart prometheus
-  tags:
-    - prometheus
-
-- name: install alertmanager
-  hosts: monitoring
-  remote_user: centos
-  roles:
-    - install-alertmanager
-  tags:
-    - alertmanager
 
 - name: install gitlab
   hosts: gitlab

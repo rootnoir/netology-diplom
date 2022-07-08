@@ -2,3 +2,4 @@
 .ignoreme/
 terraform/.terraform/
 terraform/.terraform.lock.hcl
+gitlab/

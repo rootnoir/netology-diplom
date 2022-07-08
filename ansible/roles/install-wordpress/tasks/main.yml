@@ -79,7 +79,7 @@
     owner: nginx
     group: nginx
 
-- name: Unarchive a file that is already on the remote machine
+- name: Unarchive wordpress
   become: true
   ansible.builtin.unarchive:
     src: /tmp/wordpress.tar.gz
@@ -87,6 +87,19 @@
     remote_src: yes
     owner: nginx
     group: nginx
+    creates: /var/www/wordpress
+
+- name: install wp-cli
+  become: true
+  environment:
+    https_proxy: "{{ wordpress_proxy }}"
+  ansible.builtin.get_url:
+    url: "https://github.com/wp-cli/wp-cli/releases/download/v{{ wordpress_wp_cli_version }}/wp-cli-{{ wordpress_wp_cli_version }}.phar"
+    use_proxy: yes
+    dest: /usr/local/bin/wp
+    owner: root
+    group: root
+    mode: '0755'
 
 - name: remove default.conf file
   become: true

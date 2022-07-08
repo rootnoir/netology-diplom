@@ -54,17 +54,7 @@ resource "null_resource" "wordpress" {
   }
 
   depends_on = [
-    null_resource.preconfigure
-  ]
-}
-
-resource "null_resource" "grafana" {
-  provisioner "local-exec" {
-    command = "ANSIBLE_FORCE_COLOR=1 ansible-playbook -i ../ansible/inventory/stage.yml -t grafana ../ansible/site.yml"
-  }
-
-  depends_on = [
-    null_resource.preconfigure
+    null_resource.database
   ]
 }
 
@@ -74,7 +64,7 @@ resource "null_resource" "prometheus" {
   }
 
   depends_on = [
-    null_resource.grafana
+    null_resource.preconfigure
   ]
 }
 
@@ -85,6 +75,17 @@ resource "null_resource" "alertmanager" {
 
   depends_on = [
     null_resource.prometheus
+  ]
+}
+
+resource "null_resource" "grafana" {
+  provisioner "local-exec" {
+    command = "ANSIBLE_FORCE_COLOR=1 ansible-playbook -i ../ansible/inventory/stage.yml -t grafana ../ansible/site.yml"
+  }
+
+  depends_on = [
+    null_resource.prometheus,
+    null_resource.alertmanager
   ]
 }
 
