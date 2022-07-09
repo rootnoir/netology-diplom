@@ -2,4 +2,4 @@
 .ignoreme/
 terraform/.terraform/
 terraform/.terraform.lock.hcl
-gitlab/
+gitlab/wp-project

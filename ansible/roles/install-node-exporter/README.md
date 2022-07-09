@@ -1,7 +1,7 @@
-Role Name
+Install node_exporter
 =========
 
-
+Install and configure node_exporter on CentOS 7
 
 Requirements
 ------------
@@ -11,11 +11,11 @@ No specific requirements
 Role Variables
 --------------
 
-| Variable | Type | Default value | Possible values |
-|----------|------|---------------|-----------------|
-|          |      |               |                 |
-
-\* role haven't any variables
+| Variable                | Type   | Default value | Possible values |
+|-------------------------|--------|---------------|-----------------|
+| node_exporter_version   | string | "1.3.1"       |                 |
+| node_exporter_proxy     | string |               |                 |
+| node_exporter_open_port | bool   | no            | yes, no         |
 
 Dependencies
 ------------

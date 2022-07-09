@@ -1,7 +1,7 @@
-Role Name
+Populate ssh keys
 =========
 
-
+Specific role for generate ssh keys and copy public key to target host
 
 Requirements
 ------------
@@ -29,7 +29,7 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - preconfigure
+         - populate-ssh-keys
 
 License
 -------

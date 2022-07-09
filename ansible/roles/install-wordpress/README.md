@@ -1,7 +1,7 @@
-Role Name
+Install Wordpress
 =========
 
-
+Install Wordpress and wp-cli on CentOS 7
 
 Requirements
 ------------
@@ -11,11 +11,10 @@ No specific requirements
 Role Variables
 --------------
 
-| Variable | Type | Default value | Possible values |
-|----------|------|---------------|-----------------|
-|          |      |               |                 |
-
-\* role haven't any variables
+| Variable                 | Type   | Default value | Possible values |
+|--------------------------|--------|---------------|-----------------|
+| wordpress_wp_cli_version | string | "2.6.0"       |                 |
+| wordpress_proxy          | string |               |                 |
 
 Dependencies
 ------------
@@ -29,7 +28,7 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - preconfigure
+         - install-wordpress
 
 License
 -------

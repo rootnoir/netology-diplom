@@ -1,7 +1,7 @@
-Role Name
+Install Prometheus
 =========
 
-
+Install and configure Prometheus on Centos 7
 
 Requirements
 ------------
@@ -11,11 +11,11 @@ No specific requirements
 Role Variables
 --------------
 
-| Variable | Type | Default value | Possible values |
-|----------|------|---------------|-----------------|
-|          |      |               |                 |
-
-\* role haven't any variables
+| Variable           | Type   | Default value | Possible values |
+|--------------------|--------|---------------|-----------------|
+| prometheus_version | string | "2.36.2"      |                 |
+| prometheus_proxy   | string |               |                 |
+| prometheus_cpu     | string | "2"           |                 |
 
 Dependencies
 ------------
@@ -29,7 +29,7 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - preconfigure
+         - install-prometheus
 
 License
 -------

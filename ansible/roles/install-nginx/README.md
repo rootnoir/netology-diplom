@@ -1,7 +1,7 @@
-Role Name
+Install nginx
 =========
 
-
+Install and configure Nginx on CentOS 7
 
 Requirements
 ------------
@@ -29,7 +29,7 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - preconfigure
+         - install-nginx
 
 License
 -------

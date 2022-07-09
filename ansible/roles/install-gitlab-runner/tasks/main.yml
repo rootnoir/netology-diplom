@@ -26,23 +26,25 @@
     state: present
     disable_gpg_check: yes
 
-- name: register gitlab runner
-  become: true
-  ansible.builtin.shell:
-    cmd: >
-      gitlab-runner register
-      --non-interactive
-      --url '{{ gitlab_runner_coordinator_url }}'
-      --description '{{ ansible_hostname }}'
-      --tag-list '{{ gitlab_runner_tags | join(",") }}'
-      --run-untagged
-      --executor '{{ gitlab_runner_executor }}'
-      --registration-token '{{ gitlab_runner_registration_token }}'
-  when: gitlab_runner_registration_token is defined
+- block:
+    - name: register gitlab runner
+      become: true
+      ansible.builtin.shell:
+        cmd: >
+          gitlab-runner register
+          --non-interactive
+          --url '{{ gitlab_runner_coordinator_url }}'
+          --clone-url '{{ gitlab_runner_coordinator_url }}'
+          --description '{{ ansible_hostname }}'
+          --tag-list '{{ gitlab_runner_tags | join(",") }}'
+          --run-untagged
+          --executor '{{ gitlab_runner_executor }}'
+          --registration-token '{{ gitlab_runner_registration_token }}'    
 
-- name: runner started and enabled
-  become: true
-  ansible.builtin.systemd:
-    name: gitlab-runner
-    state: restarted
-    enabled: yes
+    - name: runner started and enabled
+      become: true
+      ansible.builtin.systemd:
+        name: gitlab-runner
+        state: restarted
+        enabled: yes
+  when: gitlab_runner_registration_token is defined
