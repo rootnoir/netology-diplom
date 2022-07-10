@@ -11,6 +11,7 @@ netology-diplom
 |-gitlab
 |  |-resources
 |  |-tf-demo
+|-result
 |-terraform
 
 ```
@@ -21,6 +22,7 @@ netology-diplom
 - gitlab - корневая директория для демонстрации CI/CD процесса в GitLab
   - resources - директория содержит ресурсы, необходимые для демонстрации CI/CD процесса в GitLab
   - tf-demo - директория содержит bash-скрипты, выполняемые terraform
+- result - директория со скриншотами работающей инфраструктуры
 - terraform - директория с terraform скриптами, выполняющими развертывание инфраструктуры в Yandex Cloud с последующим конфигурированием средствами ansible
 
 Необходимые действия при тестировании
@@ -67,3 +69,30 @@ export AWS_SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxxxxxxxxx
   ```
 
 4) 25-35 минут (справедливо для прерываемых машин с 20% гарантированного времени CPU) ожидать развертывания инвраструктуры с последующим автоматическим конфигурированием, и автоматической демострацией CI/CD процесса деплоя по тегам.
+
+Скриншоты
+=========
+
+## wordpress
+![](result/Screenshot%20from%202022-07-10%2015-20-01.png)
+![](result/Screenshot%20from%202022-07-10%2015-31-06.png)
+
+## gitlab
+![](result/Screenshot%20from%202022-07-10%2015-22-10.png)
+![](result/Screenshot%20from%202022-07-10%2015-22-33.png)
+![](result/Screenshot%20from%202022-07-10%2015-23-20.png)
+
+## prometheus
+![](result/Screenshot%20from%202022-07-10%2015-23-32.png)
+
+## alertmanager
+![](result/Screenshot%20from%202022-07-10%2015-23-44.png)
+
+## grafana
+![](result/Screenshot%20from%202022-07-10%2015-24-01.png)
+
+## certificate
+![](result/Screenshot%20from%202022-07-10%2015-24-41.png)
+
+## infrastructure
+![](result/Screenshot%20from%202022-07-10%2015-28-37.png)

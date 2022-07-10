@@ -41,7 +41,7 @@
     name: gitlab-ce
     state: present
     disable_gpg_check: yes
-  async: 600
+  async: 900
   poll: 5
   when: not gitlab_file.stat.exists
 
