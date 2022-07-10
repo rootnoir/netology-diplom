@@ -1,8 +1,26 @@
+## Edit this section:
+
 variable "folder_id" {
   type = string
   default = "b1guu4qkcnpm0mu1up6r"
 }
 
+variable "core_fraction" {
+  type = number
+  default = 20
+}
+
+variable "preemptible" {
+  type = bool
+  default = true
+}
+
+variable "acme_server" {
+  type = string
+  default = "letsencrypttest"
+}
+
+## Don't touch it =) #########
 variable "zone" {
   type = string
   default = "ru-central1-a"
@@ -28,16 +46,6 @@ variable "subnet2" {
   default = (["192.168.11.0/24"])
 }
 
-variable "core_fraction" {
-  type = number
-  default = 20
-}
-
-variable "preemptible" {
-  type = bool
-  default = true
-}
-
 variable "dns_ttl" {
   type = number
   default = 60
@@ -46,9 +54,4 @@ variable "dns_ttl" {
 variable "mydomain" {
   type = string  
   default = "rootnoir.ru"
-}
-
-variable "acme_server" {
-  type = string
-  default = "letsencrypttest"
 }

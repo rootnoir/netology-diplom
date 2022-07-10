@@ -1,0 +1,69 @@
+Дипломный проект по курсу DevOps
+================================
+--------------------------------
+
+Состав проекта
+==============
+
+```
+netology-diplom
+|-ansible
+|-gitlab
+|  |-resources
+|  |-tf-demo
+|-terraform
+
+```
+
+Назначение директорий
+=====================
+- ansible - директория с ansible playbook, выполняющим конфигурирование инфраструктуры
+- gitlab - корневая директория для демонстрации CI/CD процесса в GitLab
+  - resources - директория содержит ресурсы, необходимые для демонстрации CI/CD процесса в GitLab
+  - tf-demo - директория содержит bash-скрипты, выполняемые terraform
+- terraform - директория с terraform скриптами, выполняющими развертывание инфраструктуры в Yandex Cloud с последующим конфигурированием средствами ansible
+
+Необходимые действия при тестировании
+=====================================
+
+1) выполнить эекспорт переменных окружения:
+```shell
+export YC_TOKEN=xxxxxxxxxxxxxxxxxxxxxxx
+export YC_CLOUD_ID=xxxxxxxxxxxxxxxxxxxxxxx
+export AWS_ACCESS_KEY_ID=xxxxxxxxxxxxxxxxxxxxxxx
+export AWS_SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxxxxxxxxx
+```
+  - YC_TOKEN - токен Yandex Cloud
+  - YC_CLOUD_ID - id облака
+  - AWS_ACCESS_KEY_ID - access_key бакета в Yandex Cloud
+  - AWS_SECRET_ACCESS_KEY - secret_key бакета в Yandex Cloud
+
+2) актуализировать переменные в terraform/vars.tf
+  - folder_id - id директории в Yandex Cloud
+  - core_fraction - процент гарантированного обеспечения CPU
+  - preemptible - прерываемая ВМ? (bool)
+  - acme_server - acme сервер, используемый для получения сертификатов. доступные значения:
+  ```
+  CA_NAMES="
+  ZeroSSL.com,zerossl
+  LetsEncrypt.org,letsencrypt
+  LetsEncrypt.org_test,letsencrypt_test,letsencrypttest
+  BuyPass.com,buypass
+  BuyPass.com_test,buypass_test,buypasstest
+  SSL.com,sslcom
+  Google.com,google
+  Google.com_test,googletest,google_test
+  "
+  ```
+   *https://github.com/acmesh-official/acme.sh/blob/master/acme.sh#L41
+
+  - в проекте по умолчанию используется 'letsencrypttest', для полноценного сертификата, заменить на 'letsencrypt'.
+
+3) перейти в каталог terraform и последовательно выполнить:
+  ```shell
+  terraform init
+  terraform plan
+  terraform apply -auto-approve
+  ```
+
+4) 25-35 минут (справедливо для прерываемых машин с 20% гарантированного времени CPU) ожидать развертывания инвраструктуры с последующим автоматическим конфигурированием, и автоматической демострацией CI/CD процесса деплоя по тегам.
